@@ -2,29 +2,17 @@ const express = require("express");
 const morgan = require("morgan");
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
+const { promisify } = require("util");
 
 const app = express();
+const readFile = promisify(fs.readFile);
 
-// dotenv
-app.get("/", (req, res) => {
-    res.send(process.env.db_password);
-});
+app.set("port", process.env.PORT || 3000);
+app.use(morgan("dev"));
+app.use(express.json());
 
-// jwt
-app.get("/secret", (req, res) => {
-    res.json({
-        message: "Super secret message"
-    });
-});
-
-app.get("/readme", (req, res) => {
-    res.json({
-        message: "Hello world!"
-    });
-});
-
-app.get("/jwt", (req, res) => {
-    const privateKey = fs.readFileSync("./priv.pem", "utf8");
+app.get("/jwt", async (_req, res) => {
+    const privateKey = await readFile("./priv.pem", { encoding: "utf8" });
     const token = jwt.sign(
         {
             body: "stuff"
@@ -37,17 +25,8 @@ app.get("/jwt", (req, res) => {
     res.send(token);
 });
 
-// settings
-app.set("port", process.env.PORT || 3000);
-
-// middlewares
-app.use(morgan("dev"));
-app.use(express.json());
-
-// routes
 app.use("/api/users", require("./routes/user.routes"));
 
-// starting server
 app.listen(
     app.get("port"),
     () => console.log("Server on port", app.get("port")) // eslint-disable-line no-console
