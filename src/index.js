@@ -48,6 +48,7 @@ app.use(express.json());
 app.use("/api/users", require("./routes/user.routes"));
 
 // starting server
-app.listen(app.get("port"), () => {
-    console.log("Server on port", app.get("port"));
-});
+app.listen(
+    app.get("port"),
+    () => console.log("Server on port", app.get("port")) // eslint-disable-line no-console
+);
