@@ -1,28 +1,26 @@
-const User = require('../models/user');
+const User = require("../models/user.model");
 
-const userCtrl = {};
-
-userCtrl.getUsers = async (req, res) => {
-    const users = await User.find(); 
-    res.json(users);
+const getAllUsers = async (_req, res) => {
+  const users = await User.find();
+  res.json(users);
 };
 
-userCtrl.createUser = async (req, res) => {
-    const user = new User({
-        fullName : req.body.fullName,
-        email : req.body.email,
-        password : req.body.password,
-        codeMorse : req.body.codeMorse
-        });
-    await user.save();
-    res.json({
-        'status' : 'User saved.'
-    });
+const createUser = async (req, res) => {
+  await new User({
+    fullName: req.body.fullName,
+    email: req.body.email,
+    password: req.body.password,
+    codeMorse: req.body.codeMorse
+  }).save();
+
+  res.json({
+    status: "User saved."
+  });
 };
 
-userCtrl.getUser = async (req, res) => {
-    const user = await User.findById(req.params.id);
-    res.json(user);
+const getUserById = async (req, res) => {
+  const user = await User.findById(req.params.id);
+  res.json(user);
 };
 
-module.exports = userCtrl;
+module.exports = { getUserById, getAllUsers, createUser };
