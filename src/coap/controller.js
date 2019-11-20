@@ -1,26 +1,20 @@
-var connection = require('./db')
+const coap = require("coap");
+const connection = require("./db");
 
-const coap  = require('coap')
-    , req   = coap.request({
-      hostname: 'localhost',
-      pathname: '/device/button',
-      method: 'POST',
-    })
+const req = coap.request({
+    hostname: "localhost",
+    pathname: "/device/button",
+    method: "POST"
+});
 
-var userInfo
+// req.on("response", res => {
+//     const data = res.payload;
+//     JSON.parse(data);
+// });
 
-req.on('response', function(res){
-  var data = res.payload
-  userInfo = JSON.parse(data)
-})
+connection();
 
-connection()
-
-
-
-
-req.end()
-
+req.end();
 
 /*
 const MongoClient = require('mongodb').MongoClient;
@@ -43,5 +37,4 @@ MongoClient.connect(url, function(err, client) {
   result.then((data) => console.log(data))
 
   client.close()
-});*/
-
+}); */
