@@ -1,21 +1,17 @@
-var mongoose = require('mongoose');
-var user = require('./user')
-
+const mongoose = require("mongoose");
 
 // Connection URL
-var URI = 'mongodb+srv://dbUser:eZOmrJbuUmw01SUF@cluster0-xrbnk.mongodb.net/test?retryWrites=true&w=majority';
+const URI =
+    "mongodb+srv://Adrian:test1234@cluster0-bmnrq.mongodb.net/iot?retryWrites=true&w=majority";
 
-var connectDB = async ()=>{
-  await mongoose.connect(URI, { useUnifiedTopology: true, useNewUrlParser: true });
-  console.log('db connected...');
-
-  user.find({
-   firstName: 'Ismael'
- }).exec(function(err, user) {
-   if (err) throw err;
-   
-   console.log(user);
- });
-};
-
-module.exports = connectDB;
+mongoose.connect(
+    URI,
+    { useUnifiedTopology: true, useNewUrlParser: true },
+    error => {
+        if (!error) {
+            console.log("Mongo connected succesfully");
+        } else {
+            console.log(error);
+        }
+    }
+);
