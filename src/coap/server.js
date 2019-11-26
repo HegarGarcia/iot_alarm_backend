@@ -8,10 +8,10 @@ server.on("request", function(req, res) {
     if (req.method === "POST") {
         switch (req.url) {
             case "/device/button": {
-              const pinCodeString = req.payload.toString();
-              const pinCode = JSON.parse(pinCodeString).code;
-              getUserPin(pinCode).then(data => res.end(JSON.stringify(data)));
-              break;
+                const pinCodeString = req.payload.toString();
+                const pinCode = JSON.parse(pinCodeString).code;
+                getUserPin(pinCode).then(data => res.end(JSON.stringify(data)));
+                break;
             }
             default:
                 break;
