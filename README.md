@@ -32,3 +32,13 @@ As early as possible in the application, require and authenticate *JWT*.
 - `algorithm`: (default: *HS256*)
 - `expiresIn`: expressed in seconds or a string describing a time span **zeit/ms**.
 > Ex: 60, "2 days", "10h", "7d".
+
+
+### Backend coap
+This part of the project follows:
+
+- **[Coap](https://coap.technology/)**: CoAP is a specialized web transfer protocol for use with constrained nodes and constrained networks in the Internet of Things.
+
+- **[Mongoose](https://mongoosejs.com/)**: *Elegant mongodb object modeling for node.js*. Mongoose provides a straight-forward, schema-based solution to model your application data.
+
+
