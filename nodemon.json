@@ -1,0 +1,7 @@
+{
+    "watch": ["src"],
+    "exec": "node ./src/index.js",
+    "env": {
+        "MONGO_BD_URL": "mongodb+srv://dbUser:eZOmrJbuUmw01SUF@cluster0-xrbnk.mongodb.net/test?retryWrites=true&w=majority"
+    }
+}
