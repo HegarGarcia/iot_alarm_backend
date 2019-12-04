@@ -1,26 +1,39 @@
 const User = require("../models/user.model");
 
-const getAllUsers = async (_req, res) => {
+const getAllUsers = async (_req, res, next) => {
+  try {
     const users = await User.find();
-    res.json(users);
+    res.send(users);
+  } catch (error) {
+    next(error);
+  }
 };
 
-const createUser = async (req, res) => {
-    await new User({
-        fullName: req.body.fullName,
-        email: req.body.email,
-        password: req.body.password,
-        codeMorse: req.body.codeMorse
-    }).save();
-
-    res.json({
-        status: "User saved."
-    });
-};
-
-const getUserById = async (req, res) => {
+const getUserById = async (req, res, next) => {
+  try {
     const user = await User.findById(req.params.id);
-    res.json(user);
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const createUser = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.create({
+      fullName: "Usuario",
+      email,
+      password,
+      codeMorse: "1234"
+    });
+
+    // eslint-disable-next-line no-underscore-dangle
+    res.send(user._id);
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = { getUserById, getAllUsers, createUser };

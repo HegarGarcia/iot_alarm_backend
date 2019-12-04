@@ -2,9 +2,9 @@ const coap = require("coap");
 const connection = require("./db");
 
 const req = coap.request({
-    hostname: "localhost",
-    pathname: "/device/button",
-    method: "POST"
+  hostname: "localhost",
+  pathname: "/device/button",
+  method: "POST"
 });
 
 // req.on("response", res => {

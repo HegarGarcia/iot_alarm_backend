@@ -1,11 +1,14 @@
 const mongoose = require("mongoose");
 
-const URI =
-    "mongodb+srv://dbUser:eZOmrJbuUmw01SUF@cluster0-xrbnk.mongodb.net/test?retryWrites=true&w=majority";
+const URI = process.env.MONGO_BD_URL;
 
-mongoose
-    .connect(URI)
-    .then(() => console.log("DB is connected")) // eslint-disable-line no-console
-    .catch(err => console.log(err)); // eslint-disable-line no-console
+const connect = async () => {
+  try {
+    await mongoose.connect(URI);
+  } catch (error) {
+    console.error(error); // eslint-disable-line no-console
+    process.exit();
+  }
+};
 
-module.exports = mongoose;
+module.exports = { connect };

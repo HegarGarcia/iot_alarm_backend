@@ -1,33 +1,31 @@
 const express = require("express");
 const morgan = require("morgan");
-const jwt = require("jsonwebtoken");
-const fs = require("fs");
-const { promisify } = require("util");
+const helmet = require("helmet");
+const passport = require("passport");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+
+const mongodb = require("./database");
+
+const user = require("./routes/user.routes");
+const auth = require("./routes/auth.routes");
 
 const app = express();
-const readFile = promisify(fs.readFile);
+const PORT = process.env.PORT || 3000;
 
-app.set("port", process.env.PORT || 3000);
+app.use(helmet());
+app.use(cors());
 app.use(morgan("dev"));
-app.use(express.json());
+app.use(bodyParser.json());
 
-app.get("/jwt", async (_req, res) => {
-    const privateKey = await readFile("./priv.pem", { encoding: "utf8" });
-    const token = jwt.sign(
-        {
-            body: "stuff"
-        },
-        privateKey,
-        {
-            algorithm: "HS256"
-        }
-    );
-    res.send(token);
+app.use(passport.initialize());
+require("./authentication/local")(passport);
+require("./authentication/jwt")(passport);
+
+app.use("/api/auth", auth);
+app.use("/api/user", passport.authenticate("jwt", { session: false }), user);
+
+app.listen(PORT, () => {
+  mongodb.connect();
+  console.log(`Server on port ${PORT}`); // eslint-disable-line no-console
 });
-
-app.use("/api/users", require("./routes/user.routes"));
-
-app.listen(
-    app.get("port"),
-    () => console.log("Server on port", app.get("port")) // eslint-disable-line no-console
-);
