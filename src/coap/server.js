@@ -68,4 +68,4 @@ server.on("error", err => {
     server.close();
 });
 
-server.listen(() => {});
+server.listen(() => {console.log('Connected')});

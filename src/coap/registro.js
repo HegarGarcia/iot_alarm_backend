@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const Registro = new mongoose.Schema({
+const Registros = new mongoose.Schema({
     name: {
         type: String
     },
@@ -8,7 +8,7 @@ const Registro = new mongoose.Schema({
         type: String
     },
     timestamp: {
-        type: Date.now()
+        type: Date
     }
 });
 
