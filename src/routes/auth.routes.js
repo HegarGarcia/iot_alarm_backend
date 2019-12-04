@@ -1,10 +1,11 @@
 const { Router } = require("express");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
+const { createUser } = require("../controllers/user.controllers");
 
 const router = Router();
 
-router.post("/login", (req, res, next) => {
+router.post("/signin", (req, res, next) => {
   passport.authenticate("local", { session: false }, (err, user) => {
     if (err || !user) {
       return res.status(400).send({
@@ -23,5 +24,7 @@ router.post("/login", (req, res, next) => {
     });
   })(req, res, next);
 });
+
+router.post("/signup", createUser);
 
 module.exports = router;

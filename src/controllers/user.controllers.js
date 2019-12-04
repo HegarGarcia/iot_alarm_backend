@@ -19,14 +19,14 @@ const getUserById = async (req, res, next) => {
 };
 
 const createUser = async (req, res, next) => {
-  const { fullName, email, password, codeMorse } = req.body;
+  const { email, password } = req.body;
 
   try {
     const user = await User.create({
-      fullName,
+      fullName: "Usuario",
       email,
       password,
-      codeMorse
+      codeMorse: "1234"
     });
 
     // eslint-disable-next-line no-underscore-dangle
