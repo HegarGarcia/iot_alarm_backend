@@ -1,7 +1,8 @@
 {
-    "watch": ["src"],
-    "exec": "node ./src/index.js",
-    "env": {
-        "MONGO_BD_URL": "mongodb+srv://dbUser:eZOmrJbuUmw01SUF@cluster0-xrbnk.mongodb.net/test?retryWrites=true&w=majority"
-    }
+  "watch": ["src"],
+  "exec": "node ./src/index.js",
+  "env": {
+    "MONGO_BD_URL": "mongodb+srv://dev:uB5l8Grv2rSuNffO@iot-alarm-cluster-avzd5.gcp.mongodb.net/development?retryWrites=true&w=majority",
+    "JWT_SECRET": "ZAba8tMDVjCz7HUnRAfN"
+  }
 }
